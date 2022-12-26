@@ -13,6 +13,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -39,6 +41,7 @@ public class TrainerEkrani extends AppCompatActivity {
         EditText soyisimText = findViewById(R.id.soyisimText);
 
         EditText egitmenNotText = findViewById(R.id.egitmenNotText);
+        EditText idmanText = findViewById(R.id.idmanText);
         Button notEkleButon = findViewById(R.id.notEkleButon);
 
         FirebaseFirestore firestore = FirebaseFirestore.getInstance();
@@ -61,6 +64,7 @@ public class TrainerEkrani extends AppCompatActivity {
                                             String uyelikTipi = document.get("uyelikTipi").toString();
                                             String soyisim = document.get("soyisim").toString();
                                             String telefon = document.get("telefon").toString();
+                                            String egitmenNot = document.get("egitmenNot").toString();
 
                                             cagrilanID = document.getId();
 
@@ -68,7 +72,7 @@ public class TrainerEkrani extends AppCompatActivity {
 
                                                 if (!uyelikTipi.equalsIgnoreCase("trainer")) {
                                                     kullaniciBilgi.setText("Uyelik Tipi : " + uyelikTipi + "\n" + "İsim : " + isimText.getText().toString()
-                                                    + "\n" + "Soyisim : " + soyisim + "\n" + "Telefon Numarası : " + telefon + "\n" + "Spor Programı : " );
+                                                    + "\n" + "Soyisim : " + soyisim + "\n" + "Telefon Numarası : " + telefon + "\n" + "Egitmen Notu : " + egitmenNot);
                                                 }
                                             } else {
                                                 Toast.makeText(getApplicationContext(), "Lütfen bilgilerinizi doğru giriniz!", Toast.LENGTH_LONG).show();
@@ -86,10 +90,40 @@ public class TrainerEkrani extends AppCompatActivity {
         notEkleButon.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 if (egitmenNotText.getText().toString().trim().length() > 0) {
-                    user.put("egitmenNot", egitmenNotText.getText());
-                    //firestore.collection("users").document(cagrilanID).set(user, SetOptions.merge());
+                    firestore.collection("users").document(cagrilanID)
+                            .update("egitmenNot", egitmenNotText.getText().toString())
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Toast.makeText(getApplicationContext(), "Başarıyla not eklediniz!", Toast.LENGTH_LONG).show();
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Toast.makeText(getApplicationContext(), "Sunucu Hatası!", Toast.LENGTH_LONG).show();
+                                }
+                            });
                 } else {
-                    Toast.makeText(getApplicationContext(), "Lütfen bilgilerinizi giriniz!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "Eğitmen notu eklenemedi!", Toast.LENGTH_LONG).show();
+                }
+                if (egitmenNotText.getText().toString().trim().length() > 0) {
+                    firestore.collection("users").document(cagrilanID)
+                            .update("idman", idmanText.getText().toString())
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Toast.makeText(getApplicationContext(), "Başarıyla idman eklediniz!", Toast.LENGTH_LONG).show();
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Toast.makeText(getApplicationContext(), "Sunucu Hatası!", Toast.LENGTH_LONG).show();
+                                }
+                            });
+                } else {
+                    Toast.makeText(getApplicationContext(), "İdman eklenemedi!", Toast.LENGTH_LONG).show();
                 }
             }
         });

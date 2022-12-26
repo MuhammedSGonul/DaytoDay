@@ -20,6 +20,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 public class MainActivity extends AppCompatActivity {
 
+    public static String loggedID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +49,8 @@ public class MainActivity extends AppCompatActivity {
                                         for (QueryDocumentSnapshot document : task.getResult()) {
                                             String sifre = document.get("sifre").toString();
                                             String uyelikTipi = document.get("uyelikTipi").toString();
+
+                                            loggedID = document.getId();
 
                                             if (sifre.equalsIgnoreCase(passwordText.getText().toString())) {
 
