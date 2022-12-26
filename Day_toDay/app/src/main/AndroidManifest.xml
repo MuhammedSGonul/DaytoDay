@@ -41,7 +41,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".AdminEkrani"
+            android:name=".TrainerEkrani"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

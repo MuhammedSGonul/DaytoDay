@@ -73,15 +73,15 @@ public class KayitEkrani extends AppCompatActivity {
 
                     if (platinRadio.isChecked()) {
                         ucret = "1500";
-                        kayitEdilenKullanici = new Kullanici(isimText.getText().toString(), soyisimText.getText().toString(), telefonText.getText().toString(), emailText.getText().toString(), sifreText.getText().toString(), "platin");
+                        kayitEdilenKullanici = new Kullanici(isimText.getText().toString(), soyisimText.getText().toString(), telefonText.getText().toString(), emailText.getText().toString(), sifreText.getText().toString(), "Platin");
                         startActivity(new Intent(KayitEkrani.this, OdemeEkrani.class));
                     } else if (goldRadio.isChecked()) {
                         ucret = "1000";
-                        kayitEdilenKullanici = new Kullanici(isimText.getText().toString(), soyisimText.getText().toString(), telefonText.getText().toString(), emailText.getText().toString(), sifreText.getText().toString(), "gold");
+                        kayitEdilenKullanici = new Kullanici(isimText.getText().toString(), soyisimText.getText().toString(), telefonText.getText().toString(), emailText.getText().toString(), sifreText.getText().toString(), "Gold");
                         startActivity(new Intent(KayitEkrani.this, OdemeEkrani.class));
                     } else if (ozelRadio.isChecked() && tckimlikText.getText().toString().trim().length() > 0) {
                         ucret = "Ücretsiz";
-                        kayitEdilenKullanici = new Kullanici(isimText.getText().toString(), soyisimText.getText().toString(), telefonText.getText().toString(), emailText.getText().toString(), sifreText.getText().toString(), "ozel");
+                        kayitEdilenKullanici = new Kullanici(isimText.getText().toString(), soyisimText.getText().toString(), telefonText.getText().toString(), emailText.getText().toString(), sifreText.getText().toString(), "Özel");
                         startActivity(new Intent(KayitEkrani.this, OdemeEkrani.class));
                     }
 

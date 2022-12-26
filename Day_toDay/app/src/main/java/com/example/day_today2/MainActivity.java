@@ -1,8 +1,5 @@
 package com.example.day_today2;
 
-import static android.content.ContentValues.TAG;
-
-import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -12,11 +9,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -54,10 +49,10 @@ public class MainActivity extends AppCompatActivity {
                                             String sifre = document.get("sifre").toString();
                                             String uyelikTipi = document.get("uyelikTipi").toString();
 
-                                            if (sifre.equals(passwordText.getText().toString())) {
+                                            if (sifre.equalsIgnoreCase(passwordText.getText().toString())) {
 
-                                                if (uyelikTipi.equals("trainer")) {
-                                                    startActivity(new Intent(MainActivity.this, AdminEkrani.class));
+                                                if (uyelikTipi.equalsIgnoreCase("Trainer")) {
+                                                    startActivity(new Intent(MainActivity.this, TrainerEkrani.class));
                                                 } else {
                                                     startActivity(new Intent(MainActivity.this, GenelBilgiler.class));
                                                 }

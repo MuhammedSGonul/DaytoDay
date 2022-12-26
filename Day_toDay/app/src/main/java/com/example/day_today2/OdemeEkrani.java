@@ -35,8 +35,6 @@ public class OdemeEkrani extends AppCompatActivity {
         ucretText.setText("Ödenecek Tutar " + KayitEkrani.ucret);
 
         FirebaseFirestore firestore = FirebaseFirestore.getInstance();
-
-
         Map<String, Object> user = new HashMap<>();
 
         odemeTamamlaButon.setOnClickListener(new View.OnClickListener() {
